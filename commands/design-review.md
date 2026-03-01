@@ -1,0 +1,1 @@
+Review a figma design using the design-review agent at ~/.claude/agents/design-review.md. Use the figma MCP tools to inspect the file structure, components, styles, and layers. The user will provide a figma file URL or key. Follow the exact review structure defined in the agent.

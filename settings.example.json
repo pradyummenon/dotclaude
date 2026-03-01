@@ -1,0 +1,79 @@
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "mcpServers": {
+    "sentry": {
+      "command": "npx",
+      "args": [
+        "@sentry/mcp-server@latest"
+      ],
+      "env": {
+        "SENTRY_ACCESS_TOKEN": "${SENTRY_ACCESS_TOKEN}"
+      }
+    },
+    "figma": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "figma-developer-mcp",
+        "--stdio"
+      ],
+      "env": {
+        "FIGMA_API_KEY": "${FIGMA_API_KEY}"
+      }
+    }
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash(git push*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/pre-push-gate.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Write(*\\.md)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/pre-block-md-spam.sh \"$CLAUDE_FILE_PATH\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write(*\\.ts) || Write(*\\.tsx) || Write(*\\.js) || Write(*\\.jsx) || Edit(*\\.ts) || Edit(*\\.tsx) || Edit(*\\.js) || Edit(*\\.jsx)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/post-edit-format.sh \"$CLAUDE_FILE_PATH\" js"
+          }
+        ]
+      },
+      {
+        "matcher": "Write(*\\.py) || Edit(*\\.py)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/post-edit-format.sh \"$CLAUDE_FILE_PATH\" py"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/stop-console-audit.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
