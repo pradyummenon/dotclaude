@@ -39,6 +39,7 @@ the install script backs up your existing `~/.claude/` config, copies the new fi
 | `performance.md` | no N+1 queries, cursor-based pagination, <200ms reads, lazy loading, bundle optimization |
 | `code-hygiene.md` | no console.log/print/System.out, no debugger statements, no commented-out code, no orphan files |
 | `agents.md` | when to delegate to subagents (>3 files review, >500 word docs, >3 tickets), structured output requirements |
+| `iris-safety.md` | branch protection (feat/ branches), change limits, critical path warnings, blocked actions for autonomous agents |
 
 ### skills (on-demand knowledge)
 
@@ -56,6 +57,8 @@ the install script backs up your existing `~/.claude/` config, copies the new fi
 | `prd-writing.md` | PRD template: problem, user stories, scope, metrics, flows | writing product requirements |
 | `trd-writing.md` | TRD template: system context, requirements, data model, APIs, deployment | writing technical requirements |
 | `refactor-clean.md` | dead code detection, unused dependencies, orphan files, batch removal | refactoring and cleanup |
+| `backend-conventions.md` | org-wide backend standards: REST API design, auth, error handling, data layer, deployment | backend code review, feature implementation |
+| `frontend-conventions.md` | org-wide frontend standards: component architecture, Redux Toolkit, styled-components, testing, a11y | frontend code review, feature implementation |
 
 ### agents (autonomous subagents)
 
@@ -72,6 +75,11 @@ the install script backs up your existing `~/.claude/` config, copies the new fi
 | `trd-reviewer.md` | reviews TRDs for completeness, feasibility, and quality before engineering begins |
 | `jira-ticket-creator.md` | converts raw descriptions into structured Jira tickets with acceptance criteria and estimates |
 | `refactor-agent.md` | identifies dead code, unused dependencies, and orphan files with confidence scoring |
+| `feature-builder.md` | implements features by replicating established codebase patterns, supports Figma design URLs |
+| `impact-analyzer.md` | assesses feasibility and impact of proposed changes with effort estimates and risk analysis |
+| `pr-creator.md` | creates well-formed PRs with conventional commits, structured bodies, and reviewer suggestions |
+| `context-indexer.md` | indexes a codebase into a structured context graph that other agents consume |
+| `iris-hld-gen.md` | generates/regenerates iris architecture diagrams (C4, security, message flow, harness) |
 
 ### commands (slash commands)
 
@@ -91,6 +99,11 @@ the install script backs up your existing `~/.claude/` config, copies the new fi
 | `/test-python-integration` | Python integration test generation/execution |
 | `/test-java-unit` | Java unit test generation/execution |
 | `/test-java-integration` | Java integration test generation/execution |
+| `/build-feature` | feature implementation — find template, plan, implement, validate, create PR |
+| `/ship` | create PR from current branch changes — lint, test, push, PR creation |
+| `/impact` | feasibility assessment — effort estimates, risk analysis, reviewer suggestions |
+| `/index-codebase` | index or re-index the current repo into a context graph for other agents |
+| `/iris-hld` | generate or regenerate iris architecture diagrams (context, container, security, flow, harness, integration, all) |
 
 ### hooks (lifecycle automation)
 
@@ -182,10 +195,10 @@ dotclaude/
   .gitignore
   install.sh                    # copies files to ~/.claude/ with backup
   settings.example.json         # MCP servers + hook registration template
-  rules/                        # 7 constraint files (always loaded)
-  skills/                       # 12 knowledge files (loaded on demand)
-  agents/                       # 11 agent definitions
-  commands/                     # 14 slash command definitions
+  rules/                        # 8 constraint files (always loaded)
+  skills/                       # 14 knowledge files (loaded on demand)
+  agents/                       # 16 agent definitions
+  commands/                     # 19 slash command definitions
   hooks/                        # 4 shell scripts (lifecycle automation)
   docs/
     philosophy.md               # why this setup exists
