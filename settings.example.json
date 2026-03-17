@@ -22,6 +22,19 @@
       "env": {
         "FIGMA_API_KEY": "${FIGMA_API_KEY}"
       }
+    },
+    "google-workspace": {
+      "command": "uv",
+      "args": [
+        "run", "--directory",
+        "/home/pradyum_menon_loophealth_com/.openclaw/mcp-servers/google-workspace/",
+        "main.py", "--transport", "stdio", "--read-only",
+        "--tool-tier", "core", "--tools", "drive", "docs", "sheets"
+      ],
+      "env": {
+        "GOOGLE_OAUTH_CLIENT_ID": "${GOOGLE_OAUTH_CLIENT_ID}",
+        "GOOGLE_OAUTH_CLIENT_SECRET": "${GOOGLE_OAUTH_CLIENT_SECRET}"
+      }
     }
   },
   "hooks": {
